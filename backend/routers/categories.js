@@ -8,7 +8,7 @@ router.get('/:id', categoriesController.show);
 
 router.post('/', categoriesController.store);
 
-router.patch('/:id', categoriesController.update);
+router.put('/:id', categoriesController.update);
 
 router.delete('/:id', categoriesController.destroy);
 

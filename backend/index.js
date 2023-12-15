@@ -1,25 +1,33 @@
 // ***importo express
 const express= require('express');
-
 // ***importo dotenv
 const dotenv = require('dotenv').config();
-
 // ***express
 const app = express();
-
 // ***porta
 const port = 3000;
+// ***importo cors
+const cors = require("cors");
 
+
+// abilitiamo cors
+app.use(cors());
+
+// *** rotte
 const postsRouter = require("./routers/posts");
 const categoriesRouter = require("./routers/categories");
+const authsRouter = require("./routers/auth");
+
 
 
 //***application/json
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // registro le rotte
 app.use("/posts", postsRouter);
 app.use("/categories", categoriesRouter);
+app.use("/", authsRouter )
 
 // Middleware di gestione degli errori
 app.use((err, req, res, next) => {

@@ -1,6 +1,10 @@
 const Joi = require ('joi')
 
 const authSchema = Joi.object({
+    name:Joi.string().required().messages({
+        'string.empty': 'Il campo non può essere vuoto',
+        'any.required': "Il nome è obbligatoria",
+    }),
     email:Joi.string().email().lowercase().required().messages({
         'string.empty': 'Il campo non può essere vuoto',
         'any.required': "L'email è obbligatoria",
@@ -19,10 +23,11 @@ const postSchema = Joi.object({
     description: Joi.string().required().messages({
         'string.empty': 'Il campo non può essere vuoto',
     }),
-    image: Joi.string(),
+    image: Joi.object({
+        path: Joi.string().required(),
+    }),
     available: Joi.boolean().required(),
-    categoryId: Joi.number().required(),
-      
+    categoryId: Joi.array().required(),
   });
   
   const categorySchema = Joi.object({
