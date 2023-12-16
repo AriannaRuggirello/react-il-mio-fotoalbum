@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Show = () => {
-  const { id } = useParams(); // Ottieni l'ID dalla route
+  const { id } = useParams(); 
   const [postData, setPostData] = useState(null);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Show = () => {
     };
 
     fetchData();
-  }, [id]); // Aggiungi 'id' come dipendenza per fare in modo che useEffect si rieffettui quando 'id' cambia
+  }, [id]); 
 
   return (
     <div className="container mx-auto flex justify-between items-center">

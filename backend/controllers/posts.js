@@ -61,23 +61,29 @@ async function show(req, res) {
     try {
         const { id } = req.params;
         const postId = parseInt(id);
-        
+
         if (isNaN(postId)) {
-          res.status(400).json({ error: 'L\'ID del post non è valido' });
-          return;
+            res.status(400).json({ error: 'L\'ID del post non è valido' });
+            return;
         }
-        
+
         const post = await prisma.post.findUnique({
-          where: { id: postId },
-          include: {
-            category: true,
-          },
+            where: { id: postId },
+            include: {
+                categories: true,
+            },
         });
-        
+
+        if (post) {
+            res.json(post);
+        } else {
+            res.status(404).json({ error: "Post non trovato" });
+        }
     } catch (error) {
         res.status(500).json({ error: 'Errore nella show del post', details: error.message });
     }
 }
+
 
 
 async function store(req, res) {
@@ -157,8 +163,7 @@ async function update(req, res) {
                     connect: categoryIds.map(categoryId => ({ id: categoryId })),
                 },
             },
-            // Include solo il campo 'category' se necessario
-            include: categoryIds.length > 0 ? { category: true } : undefined,
+            include: { category: true },
         });
 
         res.json(updatedPost);
