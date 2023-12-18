@@ -14,9 +14,7 @@ const Hero = () => {
         </h1>
         <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-400 font-normal text-center text-sm sm:text-lg">Esplora il Mondo Attraverso lo Sguardo del Nostro Obiettivo </p>
       </div>
-      <div className="flex justify-center items-center">
-        <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300 bg-orange-300 transition duration-150 ease-in-out hover:bg-orange-400 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-orange-300 py-2 sm:py-4 text-sm">Get Started</button>
-      </div>
+   
     </div>
   </div>
   )

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 
 const DashboardDefault = () => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
-
 
 // ************************ POST LIST ************************
   async function fetchPosts() {
@@ -18,6 +17,24 @@ const DashboardDefault = () => {
       console.error('Errore nella richiesta al backend:', error);
     }
   }
+
+    // ************************ DELETE POST ID ************************
+
+
+    async function removePost(idToRemove) {
+      try {
+        // Effettuo la richiesta di cancellazione al backend
+        await axios.delete(`http://localhost:3000/posts/${idToRemove}`);
+        // Aggiorno l'elenco dei post solo dopo che la cancellazione è avvenuta con successo
+        setPosts(posts.filter((post) => post.id !== idToRemove));
+      } catch (error) {
+        console.error('Errore durante la cancellazione del post:', error);
+      }
+    }
+
+
+
+
 
   // ************************ CATEGORY LIST ************************
   async function fetchCategories() {
@@ -34,19 +51,6 @@ const DashboardDefault = () => {
     }
   }
 
-  // ************************ DELETE POST ID ************************
-
-
-  async function removePost(idToRemove) {
-    try {
-      // Effettuo la richiesta di cancellazione al backend
-      await axios.delete(`http://localhost:3000/posts/${idToRemove}`);
-      // Aggiorno l'elenco dei post solo dopo che la cancellazione è avvenuta con successo
-      setPosts(posts.filter((post) => post.id !== idToRemove));
-    } catch (error) {
-      console.error('Errore durante la cancellazione del post:', error);
-    }
-  }
 
 
   // ************************ DELETE CATEGORY ID ************************
@@ -79,6 +83,9 @@ const DashboardDefault = () => {
               >
               +
         </Link>
+
+
+        {/* *****STAMPA DEI POST */}
         <h1 className='font-bold my-7 uppercase'>I miei Post</h1>
         {posts.map(post => (
           <div key={post.id} className="flex justify-between items-center bg-white border rounded-lg shadow px-5 my-5">
@@ -146,3 +153,9 @@ const DashboardDefault = () => {
 }
 
 export default DashboardDefault;
+
+
+
+
+
+

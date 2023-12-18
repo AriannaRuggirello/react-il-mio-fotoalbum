@@ -158,19 +158,20 @@ async function update(req, res) {
                 description,
                 image: imagePath,
                 available: available === "true",
-                // Collega le nuove categorie solo se sono fornite nella richiesta
                 categories: {
                     connect: categoryIds.map(categoryId => ({ id: categoryId })),
                 },
             },
-            include: { categories: true },  // Cambiato 'category' in 'categories'
+            include: { categories: true },  
         });
         
         res.json(updatedPost);
         
-    } catch (error) {
+    }catch (error) {
+        console.error('Errore nell update del post', error);
         res.status(500).json({ error: 'Errore nell update del post', details: error.message });
     }
+    
 }
 
 

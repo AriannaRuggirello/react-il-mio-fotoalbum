@@ -17,14 +17,17 @@ const Show = () => {
       }
     };
 
+
+    
+
     fetchData();
   }, [id]); 
 
   return (
-    <div className="container mx-auto flex justify-between items-center">
+    <div className="container mx-auto  my-10 justify-between items-start grid grid-cols-2">
       {postData && (
         <>
-          <img className='my-10' src={`http://localhost:3000/${postData.image}`} alt={postData.title} />
+          <img  src={`http://localhost:3000/${postData.image}`} alt={postData.title} />
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{postData.title}</h5>
