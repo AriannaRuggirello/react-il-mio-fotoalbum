@@ -20,18 +20,19 @@ const DashboardDefault = () => {
   }
 
   // ************************ CATEGORY LIST ************************
-//   async function fetchCategories() {
-//     try {
-//       const response = await axios.get('http://localhost:3000/categories/');
-//       console.log(response.data); 
-      
-//       console.log('Categories:', categories);
+  async function fetchCategories() {
+    try {
+      const response = await axios.get('http://localhost:3000/categories/');
+      // console.log('Raw category data:', response.data);
 
-//       setCategories(response.data.categories);
-//     } catch (error) {
-//       console.error('Errore nella richiesta al backend:', error);
-//     }
-//   } 
+      const categoryNames = response.data.map(category => category.name);
+      // console.log('Category names:', categoryNames);
+
+      setCategories(response.data);
+    } catch (error) {
+      console.error('Errore nella richiesta al backend:', error);
+    }
+  }
 
   // ************************ DELETE POST ID ************************
 
@@ -50,20 +51,22 @@ const DashboardDefault = () => {
 
   // ************************ DELETE CATEGORY ID ************************
 
-//   async function removeCategory(idToRemove) {
-//     try {
-//       // Effettuo la richiesta di cancellazione al backend
-//       await axios.delete(`http://localhost:3000/categories/${idToRemove}`);
-//       // Aggiorno l'elenco dei post solo dopo che la cancellazione è avvenuta con successo
-//       setCategories(categories.filter((category) => category.id !== idToRemove));
-//     } catch (error) {
-//       console.error('Errore durante la cancellazione del post:', error);
-//     }
-//   }
+  async function removeCategory(idToRemove) {
+    try {
+      // Effettuo la richiesta di cancellazione al backend
+      await axios.delete(`http://localhost:3000/categories/${idToRemove}`);
+      // Aggiorno l'elenco dei post solo dopo che la cancellazione è avvenuta con successo
+      setCategories(categories.filter((category) => category.id !== idToRemove));
+    } catch (error) {
+      console.error('Errore durante la cancellazione del post:', error);
+    }
+  }
+
+  
 
   useEffect(() => {
     fetchPosts();
-    // fetchCategories()
+    fetchCategories()
   }, []);
 
   return (
@@ -87,7 +90,7 @@ const DashboardDefault = () => {
             <div className='flex gap-3'>
               {/* show */}
               <Link
-                className="flex items-center justify-center p-2 m- text-l bg-blue-500 rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 text-white "
+                className="flex items-center justify-center p-2 m- text-l bg-yellow-500 rounded-lg  focus:ring-4 focus:outline-none focus:ring-yellow-300 text-white "
                 to={`/posts/${post.id}`}
               >
                 <i className="fa-solid fa-circle-info"></i>
@@ -101,7 +104,7 @@ const DashboardDefault = () => {
               </button>
               {/* edit */}
               <Link
-                className="flex items-center justify-center p-2 m- text-l bg-green-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300 text-white "
+                className="flex items-center justify-center p-2 m- text-l bg-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 text-white "
                 to={`/edit`}
               >
                 <i className="fa-solid fa-pen-to-square"></i>
@@ -128,12 +131,12 @@ const DashboardDefault = () => {
                 <i className="fa-solid fa-trash"></i>
               </button>
               {/* edit */}
-              {/* <button
+              <button
                 className="flex items-center justify-center p-2 m- text-l bg-blue-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 text-white "
                 // onClick={() => updateCategory(category.id)}
               >
                  <i className="fa-solid fa-pen-to-square"></i>
-              </button> */}
+              </button>
             </div>
           </div>
         ))}

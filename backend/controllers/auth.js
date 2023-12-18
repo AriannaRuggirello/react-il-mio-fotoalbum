@@ -22,6 +22,7 @@ async function register(req, res, next) {
 
         // recupera i dati dalla richiesta
         const data = req.body;
+     
 
         const existingUser = await prisma.user.findUnique({
             where: {
@@ -85,7 +86,9 @@ async function login(req, res) {
         {
           userId: user.id,
           userEmail: user.email,
-          // Altri dati che desideri includere nel token
+          userPssword: user.password,
+
+          
         },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }

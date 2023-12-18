@@ -27,10 +27,10 @@ return (
 
             {/* rotta privata */}
             {/* dashboard */}
-            <Route path="/dashboard" element={<PrivatePages><DashboardLayout /></PrivatePages>}>
+            {/* <Route path="/dashboard" element={<PrivatePages><DashboardLayout /></PrivatePages>}> */}
               <Route path="/dashboard" element={<DashboardLayout />}></Route>
             </Route>
-          </Route>
+          {/* </Route> */}
 
             {/* auth */}
           <Route path="/login" element={<Login />}></Route>

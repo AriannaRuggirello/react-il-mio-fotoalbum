@@ -111,7 +111,7 @@ async function store(req, res) {
             data: {
                 title: data.title,
                 description: data.description,
-                image: req.file.path,
+                image: targetPath,  
                 available: data.available === "true",
                 categories: {
                     connect: categoryIds.map(categoryId => ({ id: categoryId }))
@@ -163,10 +163,11 @@ async function update(req, res) {
                     connect: categoryIds.map(categoryId => ({ id: categoryId })),
                 },
             },
-            include: { category: true },
+            include: { categories: true },  // Cambiato 'category' in 'categories'
         });
-
+        
         res.json(updatedPost);
+        
     } catch (error) {
         res.status(500).json({ error: 'Errore nell update del post', details: error.message });
     }

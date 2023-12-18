@@ -10,6 +10,7 @@ const Post = () => {
       try {
         const response = await axios.get('http://localhost:3000/posts/');
         setPosts(response.data.posts);
+        console.log(response.data);
       } catch (error) {
         console.error('Errore nella richiesta al backend:', error);
       }
@@ -23,9 +24,7 @@ const Post = () => {
       <div className="container mx-auto grid grid-cols-3 justify-between ">
         {posts.map(post => (
           <div key={post.id} className="max-w-sm bg-white border rounded-lg shadow">
-            <a href="#">
-              <img className="rounded-t-lg" src={post.image} alt="" />
-            </a>
+            <img src={`http://localhost:3000/${post.image}`} alt={post.title} />
             <div className="p-5">
               <a href="#">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{post.title}</h5>

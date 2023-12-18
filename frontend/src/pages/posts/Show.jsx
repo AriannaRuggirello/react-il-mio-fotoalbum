@@ -11,6 +11,7 @@ const Show = () => {
       try {
         const response = await axios.get(`http://localhost:3000/posts/${id}`);
         setPostData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Errore durante la richiesta API:', error);
       }
@@ -23,15 +24,23 @@ const Show = () => {
     <div className="container mx-auto flex justify-between items-center">
       {postData && (
         <>
-          <img className="rounded-t-lg" src={postData.imageUrl} alt="immagine" />
+          <img className='my-10' src={`http://localhost:3000/${postData.image}`} alt={postData.title} />
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{postData.title}</h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 ">{postData.description}</p>
+            <ul>
+                {postData.categories.map(category => (
+                  <li key={category.id} className='font-bold text-orange-300'>{category.name}</li>
+                ))}
+            </ul>
+
+
+
             <Link
               to="/"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-300 rounded-lg hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 "
+              className=" inline-flex  items-center my-10 px-3 py-2 text-sm font-medium text-center text-white bg-orange-300 rounded-lg hover:bg-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 "
             >
               Torna alla homepage
               <svg
